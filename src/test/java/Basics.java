@@ -1,6 +1,8 @@
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -39,6 +41,8 @@ public class Basics {
         By galleryBtn = AppiumBy.accessibilityId("Gallery");
         By photosBtn = AppiumBy.accessibilityId("1. Photos");
         By picTwo = AppiumBy.xpath("//android.widget.Gallery[@resource-id=\"io.appium.android.apis:id/gallery\"]/android.widget.ImageView[2]");
+        By dragAndDropBtn = AppiumBy.accessibilityId("Drag and Drop");
+        By firstRedDot = AppiumBy.id("io.appium.android.apis:id/drag_dot_1");
 
 //        click(preferenceBtn);
 //        click(preferecneDependencies);
@@ -56,12 +60,19 @@ public class Basics {
 //        Thread.sleep(3000);
 
         click(viewsBtn);
-        click(galleryBtn);
-        click(photosBtn);
-        swipeToElement(picTwo);
-        Thread.sleep(3000);
+        click(expandableListBtn);
+        pressBackBtn();
+        click(dragAndDropBtn);
+        dragAndDrop(firstRedDot,629,552);
 
-        Assert.assertEquals(driver.findElement(picTwo).getAttribute("focusable"),"true");
+        //        click(galleryBtn);
+//        click(photosBtn);
+//        swipeToElement(picTwo);
+//        Thread.sleep(3000);
+//
+//        Assert.assertEquals(driver.findElement(picTwo).getAttribute("focusable"),"true");
+//        Thread.sleep(3000);
+
 
 
 //        click(expandableListBtn);
@@ -69,7 +80,6 @@ public class Basics {
 //        longPressAction(peopleNameBtn);
 //        scrollToElement(switchesBtn,"down");
 
-        Thread.sleep(3000);
 
     }
     public void click(By locator){
@@ -98,6 +108,17 @@ public class Basics {
                 "direction", "right",
                 "elementId", ((RemoteWebElement) driver.findElement(locator)).getId(),
                 "percent", 0.01
+        ));
+    }
+    public void pressBackBtn(){
+        driver.pressKey(new KeyEvent(AndroidKey.BACK));
+    }
+    public void dragAndDrop(By locator,int endX,int endY){
+        // Java
+        ((JavascriptExecutor) driver).executeScript("mobile: dragGesture", ImmutableMap.of(
+                "elementId", ((RemoteWebElement) driver.findElement(locator)).getId(),
+                "endX", endX,
+                "endY", endY
         ));
     }
 }
