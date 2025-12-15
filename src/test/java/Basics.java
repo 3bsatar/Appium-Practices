@@ -1,7 +1,10 @@
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -27,26 +30,43 @@ public class Basics {
         By wifiSettingBtn = AppiumBy.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"WiFi settings\"]");
         By wifiNameField = AppiumBy.id("android:id/edit");
         By okBtn = AppiumBy.id("android:id/button1");
+        By viewsBtn = AppiumBy.accessibilityId("Views");
+        By expandableListBtn = AppiumBy.accessibilityId("Expandable Lists");
+        By customAdapterBtn = AppiumBy.accessibilityId("1. Custom Adapter");
+        By peopleNameBtn = AppiumBy.xpath("//android.widget.TextView[@text=\"People Names\"]");
 
-        click(preferenceBtn);
-        click(preferecneDependencies);
-        click(wifiCheckBox);
-        click(wifiSettingBtn);
-        sendText(wifiNameField,"Mahmoud Wifi");
-        click(okBtn);
-        
+
+//        click(preferenceBtn);
+//        click(preferecneDependencies);
+//        click(wifiCheckBox);
+//        click(wifiSettingBtn);
+//        sendText(wifiNameField,"Mahmoud Wifi");
+//        click(okBtn);
+
 //        driver.findElement(AppiumBy.accessibilityId("Preference")).click();
 //        driver.findElement(AppiumBy.accessibilityId("3. Preference dependencies")).click();
 //        driver.findElement(AppiumBy.id("android:id/checkbox")).click();
 //        driver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"android:id/title\" and @text=\"WiFi settings\"]")).click();
 //        driver.findElement(AppiumBy.id("android:id/edit")).sendKeys("Mahmoud Wifi");
 //        driver.findElement(AppiumBy.id("android:id/button1")).click();
+//        Thread.sleep(3000);
+
+        click(viewsBtn);
+        click(expandableListBtn);
+        click(customAdapterBtn);
+        longPressAction(peopleNameBtn);
         Thread.sleep(3000);
+
     }
     public void click(By locator){
         driver.findElement(locator).click();
     }
     public void  sendText(By locator,String text){
         driver.findElement(locator).sendKeys(text);
+    }
+    public void  longPressAction(By locator){
+        ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture", ImmutableMap.of(
+                "elementId", ((RemoteWebElement) driver.findElement(locator)).getId()
+        ));
     }
 }
