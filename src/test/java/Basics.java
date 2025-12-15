@@ -34,7 +34,7 @@ public class Basics {
         By expandableListBtn = AppiumBy.accessibilityId("Expandable Lists");
         By customAdapterBtn = AppiumBy.accessibilityId("1. Custom Adapter");
         By peopleNameBtn = AppiumBy.xpath("//android.widget.TextView[@text=\"People Names\"]");
-
+        By switchesBtn = AppiumBy.accessibilityId("Switches");
 
 //        click(preferenceBtn);
 //        click(preferecneDependencies);
@@ -52,10 +52,12 @@ public class Basics {
 //        Thread.sleep(3000);
 
         click(viewsBtn);
-        click(expandableListBtn);
-        click(customAdapterBtn);
-        longPressAction(peopleNameBtn);
+//        click(expandableListBtn);
+//        click(customAdapterBtn);
+//        longPressAction(peopleNameBtn);
+
         Thread.sleep(3000);
+        scrollToElement(switchesBtn,"down");
 
     }
     public void click(By locator){
@@ -67,6 +69,15 @@ public class Basics {
     public void  longPressAction(By locator){
         ((JavascriptExecutor) driver).executeScript("mobile: longClickGesture", ImmutableMap.of(
                 "elementId", ((RemoteWebElement) driver.findElement(locator)).getId()
+        ));
+    }
+    public void scrollToElement(By locator,String upOrDown){
+        // Java
+        // Java
+        boolean canScrollMore = (Boolean) ((JavascriptExecutor) driver).executeScript("mobile: scrollGesture", ImmutableMap.of(
+                "left", 100, "top", 100, "width", 200, "height", 2500,
+                "direction", upOrDown.toLowerCase(),
+                "percent", 3.0
         ));
     }
 }
