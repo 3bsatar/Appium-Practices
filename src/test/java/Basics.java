@@ -5,6 +5,7 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
@@ -35,6 +36,9 @@ public class Basics {
         By customAdapterBtn = AppiumBy.accessibilityId("1. Custom Adapter");
         By peopleNameBtn = AppiumBy.xpath("//android.widget.TextView[@text=\"People Names\"]");
         By switchesBtn = AppiumBy.accessibilityId("Switches");
+        By galleryBtn = AppiumBy.accessibilityId("Gallery");
+        By photosBtn = AppiumBy.accessibilityId("1. Photos");
+        By picTwo = AppiumBy.xpath("//android.widget.Gallery[@resource-id=\"io.appium.android.apis:id/gallery\"]/android.widget.ImageView[2]");
 
 //        click(preferenceBtn);
 //        click(preferecneDependencies);
@@ -52,12 +56,20 @@ public class Basics {
 //        Thread.sleep(3000);
 
         click(viewsBtn);
+        click(galleryBtn);
+        click(photosBtn);
+        swipeToElement(picTwo);
+        Thread.sleep(3000);
+
+        Assert.assertEquals(driver.findElement(picTwo).getAttribute("focusable"),"true");
+
+
 //        click(expandableListBtn);
 //        click(customAdapterBtn);
 //        longPressAction(peopleNameBtn);
+//        scrollToElement(switchesBtn,"down");
 
         Thread.sleep(3000);
-        scrollToElement(switchesBtn,"down");
 
     }
     public void click(By locator){
@@ -78,6 +90,14 @@ public class Basics {
                 "left", 100, "top", 100, "width", 200, "height", 2500,
                 "direction", upOrDown.toLowerCase(),
                 "percent", 3.0
+        ));
+    }
+    public void swipeToElement(By locator){
+        // Java
+        ((JavascriptExecutor) driver).executeScript("mobile: swipeGesture", ImmutableMap.of(
+                "direction", "right",
+                "elementId", ((RemoteWebElement) driver.findElement(locator)).getId(),
+                "percent", 0.01
         ));
     }
 }
