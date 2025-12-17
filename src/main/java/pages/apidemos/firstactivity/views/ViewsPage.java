@@ -5,9 +5,9 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import pages.apidemos.BasePage;
 
-public class views extends BasePage {
+public class ViewsPage extends BasePage {
     private final By dragAndDropBtn = AppiumBy.accessibilityId("Drag and Drop");
-    public views(AndroidDriver driver) {
+    public ViewsPage(AndroidDriver driver) {
         super(driver);
     }
 

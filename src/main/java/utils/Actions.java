@@ -16,7 +16,7 @@ public class Actions {
     private final WebDriverWait wait;
     private final AndroidDriver driver;
     public Actions(AndroidDriver driver){
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         this.driver = driver;
     }
 
@@ -25,6 +25,7 @@ public class Actions {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
         driver.findElement(locator).click();
     }
+
     public void sendTextToElement(By locator, String text){
         driver.findElement(locator).sendKeys(text);
     }
