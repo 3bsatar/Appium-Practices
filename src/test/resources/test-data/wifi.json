@@ -1,0 +1,7 @@
+{
+  "personalWifiName": "Mahmoud's Wifi",
+  "companyWifiName": {
+    "mainWifi": "Main Wifi",
+    "secondaryWifi": "Secondary Wifi"
+  }
+}
