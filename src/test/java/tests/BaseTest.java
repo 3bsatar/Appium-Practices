@@ -14,6 +14,7 @@ import pages.apidemos.firstactivity.preference.PreferencePage;
 import pages.apidemos.firstactivity.preference.preferencedepencies.PreferenceDependenciesPage;
 import pages.apidemos.firstactivity.views.ViewsPage;
 import pages.apidemos.firstactivity.views.draganddrop.DragAndDrop;
+import utils.ConfigManager;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -32,9 +33,10 @@ public class BaseTest {
     WebDriverWait wait;
 
     public BaseTest(){
+        ConfigManager.initialize();
         this.appiumServer = new AppiumServiceBuilder()
-                .withAppiumJS(new File("C:\\Users\\3bsatar\\AppData\\Roaming\\npm\\node_modules\\appium\\build\\lib\\main.js"))
-                .withIPAddress("127.0.0.1").usingPort(4723).build();
+                .withAppiumJS(new File(ConfigManager.getProperty("main.js.path")))
+                .withIPAddress(ConfigManager.getProperty("ip.address")).usingPort(Integer.parseInt(ConfigManager.getProperty("port.number"))).build();
     }
 
     @BeforeClass
@@ -59,10 +61,10 @@ public class BaseTest {
 
     public void createDriver () throws URISyntaxException, MalformedURLException {
         UiAutomator2Options options = new UiAutomator2Options();
-        options.setDeviceName("PixelTest");
-        options.setApp("E:\\Testing\\Testing-Projects\\AppiumAuto\\src\\test\\resources\\ApiDemos-debug.apk");
+        options.setDeviceName(ConfigManager.getProperty("device.name"));
+        options.setApp(ConfigManager.getProperty("app.path"));
 
-        driver = new AndroidDriver(new URI("http://127.0.0.1:4723/").toURL(),options);
+        driver = new AndroidDriver(new URI(ConfigManager.getProperty("appium.url")).toURL(),options);
 
     }
     public void createObjects(){
