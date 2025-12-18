@@ -5,6 +5,8 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -29,7 +31,7 @@ public class BaseTest {
     protected PreferenceDependenciesPage preferenceDependenciesPage;
     protected ViewsPage viewsPage;
     protected DragAndDrop dragAndDrop;
-
+    private Logger logger = LoggerFactory.getLogger(BaseTest.class);
     WebDriverWait wait;
 
     public BaseTest(){
@@ -41,7 +43,11 @@ public class BaseTest {
 
     @BeforeClass
     public void  initAppiumServer(){
-        appiumServer.start();
+        if(appiumServer.isRunning()){
+            logger.info("The server is running");
+        }else {
+            appiumServer.start();
+        }
     }
 
     @BeforeMethod

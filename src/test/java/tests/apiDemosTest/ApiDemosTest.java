@@ -12,7 +12,7 @@ import utils.ConfigManager;
 import utils.JsonUtils;
 
 public class ApiDemosTest extends BaseTest {
-    private WifiTestData testData;
+    private final WifiTestData testData;
 
     public ApiDemosTest(){
         this.apiDemosPage = new ApiDemosPage(driver);
